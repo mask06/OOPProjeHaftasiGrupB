@@ -1,11 +1,23 @@
-﻿namespace MaasBordrosuUI
+﻿using System;
+using System.IO;
+using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Collections.Generic;
+using CSProjeDemo2;
+
+namespace CSProjeDemo2
+
 {
     internal class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            Console.WriteLine("minel karakökçek");
-            Console.WriteLine("aydan çakmak");
+            DosyaOku jsonOku = new DosyaOku();
+            jsonOku.dosyaOku();
+
+            
         }
     }
 }
+

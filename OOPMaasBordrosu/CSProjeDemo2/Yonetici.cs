@@ -6,10 +6,16 @@ using System.Threading.Tasks;
 
 namespace CSProjeDemo2
 {
-    internal class Yonetici : Personel
+    public class Yonetici : Personel
     {
+        
         int saatlikucret = 800;
         int bonus = 1000;
+        public Yonetici(int calismaSaati)
+        {
+            CalismaSaati = calismaSaati;    
+        }
+
         public override decimal MaasHesapla()
         {
             AnaOdeme = CalismaSaati * saatlikucret;

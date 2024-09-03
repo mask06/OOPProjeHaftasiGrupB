@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace CSProjeDemo2
 {
+    [JsonConverter(typeof(Personel))]
+    // Json DEserilation to Abstract clas or Interfdace
     public abstract class Personel
     {
         public string Name { get; set; }
@@ -14,10 +18,12 @@ namespace CSProjeDemo2
 
         public decimal AnaOdeme { get; set; }
 
-        public decimal Mesai { get; set; }
-
         public decimal ToplamOdeme { get; set; }
-
+        protected Personel()
+        {
+            
+        }
         public abstract decimal MaasHesapla();
+
     }
 }
