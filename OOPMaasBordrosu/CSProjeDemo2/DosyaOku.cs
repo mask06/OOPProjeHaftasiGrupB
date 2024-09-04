@@ -9,9 +9,10 @@ public class DosyaOku
 {
     int mCalismaSaati, yCalismaSaati;
 
-    public void dosyaOku()
+    public List<PersonInfo> dosyaOku()
     {
         List<PersonInfo> azCalisan = new List<PersonInfo>();
+        List<PersonInfo> tumCalisan = new List<PersonInfo>();
 
         string json = File.ReadAllText("personel.json");
         List<PersonInfo> people = JsonSerializer.Deserialize<List<PersonInfo>>(json);
@@ -24,12 +25,9 @@ public class DosyaOku
         {
             if (item.Title == "Memur")
             {
+
                 Console.WriteLine("Memur Çalışma Saatini Giriniz.");
                 mCalismaSaati = Convert.ToInt32(Console.ReadLine());
-                if (mCalismaSaati < 150)
-                {
-                    azCalisan.Add(item);
-                }
                 MemurKademesi memurKademesi = new MemurKademesi();
 
                 bool kademeBool = false;
@@ -39,7 +37,7 @@ public class DosyaOku
                     kademeBool = false;
                     Console.WriteLine("Memur Kademesinizi Giriniz. Derece1 için (1), Derece2 için (2) ve Derece3 için (3)'e basınız.");
                     int secim = Convert.ToInt32(Console.ReadLine());
-
+                    
                     switch (secim)
                     {
                         case 1:
@@ -59,6 +57,16 @@ public class DosyaOku
 
                 Memur memur = new Memur(mCalismaSaati, memurKademesi);
                 Console.WriteLine(memur.MaasHesapla());
+                item.AnaOdeme = memur.AnaOdeme;
+                item.ToplamOdeme = memur.ToplamOdeme;
+                item.CalismaSaati = memur.CalismaSaati;
+                tumCalisan.Add(item);
+
+                if (mCalismaSaati < 150)
+                {
+                    azCalisan.Add(item);
+                }
+
             }
 
             else if (item.Title == "Yonetici")
@@ -72,7 +80,8 @@ public class DosyaOku
                 Yonetici yonetici = new Yonetici(yCalismaSaati);
                 Console.WriteLine(yonetici.MaasHesapla());
             }
-        }    
+        }
+        return tumCalisan;
     }
 
     public void AzCalisan(List<PersonInfo> azCalisan)

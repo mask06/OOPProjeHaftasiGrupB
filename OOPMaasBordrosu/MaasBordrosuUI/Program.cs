@@ -14,12 +14,12 @@ namespace CSProjeDemo2
         public static void Main(string[] args)
         {
             DosyaOku jsonOku = new DosyaOku();
-            jsonOku.dosyaOku();
+            var temp = jsonOku.dosyaOku();
 
-            MaasBordro maasBordro = new MaasBordro();
-            maasBordro.PersonelleriYukle("personel.json");
+            MaasBordro maasBordro = new MaasBordro(temp);
+            //maasBordro.PersonelleriYukle();
 
-            maasBordro.RaporYazdir("raporlar");
+            maasBordro.RaporYazdir();
             maasBordro.KisaRaporYazdir();
         }
     }

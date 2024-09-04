@@ -11,33 +11,32 @@ namespace CSProjeDemo2
 {
     public class MaasBordro
     {
-        private List<PersonInfo> people;
+        private List<PersonInfo> _people;
 
-        public MaasBordro()
+        public MaasBordro(List<PersonInfo> person)
         {
-            people = new List<PersonInfo>();
+            _people = person;
         }
 
         //string json = File.ReadAllText("personel.json");
         //List<PersonInfo> people = JsonSerializer.Deserialize<List<PersonInfo>>(json);
 
-        public void PersonelleriYukle(string dosyaYolu)
+        public void PersonelleriYukle()
         {
-            dosyaYolu = "C:\\Users\\MERVE\\source\\repos\\OOPProjeHaftasiGrupB\\OOPMaasBordrosu\\MaasBordrosuUI\\bin\\Debug\\net8.0\\personel.json";
+           
             string json = File.ReadAllText("personel.json");
             //List<PersonInfo> people = JsonSerializer.Deserialize<List<PersonInfo>>(json);
-            people = JsonSerializer.Deserialize<List<PersonInfo>>(json);
+            _people = JsonSerializer.Deserialize<List<PersonInfo>>(json);
 
         }
 
 
-        public void RaporYazdir(string klasorYolu)
+        public void RaporYazdir()
         {
-            klasorYolu = "C:\\Users\\MERVE\\source\\repos\\OOPProjeHaftasiGrupB\\OOPMaasBordrosu\\MaasBordrosuUI\\bin\\Debug\\net8.0\\Bordro";
-            foreach (PersonInfo personel in people)
+            foreach (PersonInfo personel in _people)
             {
-
-                string dosyaAdi = $"{klasorYolu}\\{personel.Name}.json";
+                Directory.CreateDirectory(personel.Name);
+                string dosyaAdi = $"{personel.Name}\\{personel.Name}.json";
                 string json = JsonSerializer.Serialize(personel);
                 File.WriteAllText(dosyaAdi, json);
             }
@@ -50,7 +49,7 @@ namespace CSProjeDemo2
 
             Console.WriteLine("Personel Raporu");
 
-            foreach (PersonInfo personel in people)
+            foreach (PersonInfo personel in _people)
             {
                 if (personel.Title == "Memur")
                 {

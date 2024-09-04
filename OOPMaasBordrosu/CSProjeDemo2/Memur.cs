@@ -34,7 +34,13 @@ namespace CSProjeDemo2
                 ToplamOdeme = AnaOdeme + Mesai;
             }
             else
-                ToplamOdeme = CalismaSaati * (int)(this.MKademesi);
+            {
+                AnaOdeme = CalismaSaati * (int)(this.MKademesi);
+                ToplamOdeme = AnaOdeme;
+            }
+            this.AnaOdeme = AnaOdeme;
+            this.ToplamOdeme = ToplamOdeme;
+            
             return ToplamOdeme;
         }
     }
