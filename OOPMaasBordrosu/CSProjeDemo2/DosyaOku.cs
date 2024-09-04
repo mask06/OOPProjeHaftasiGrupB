@@ -1,6 +1,7 @@
 ﻿using CSProjeDemo2;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.IO;
 using System.Text.Json;
 
@@ -8,10 +9,10 @@ using System.Text.Json;
 public class DosyaOku
 {
     int mCalismaSaati, yCalismaSaati;
-
+    
     public List<PersonInfo> dosyaOku()
     {
-        List<PersonInfo> azCalisan = new List<PersonInfo>();
+        
         List<PersonInfo> tumCalisan = new List<PersonInfo>();
 
         string json = File.ReadAllText("personel.json");
@@ -26,7 +27,7 @@ public class DosyaOku
             if (item.Title == "Memur")
             {
 
-                Console.WriteLine("Memur Çalışma Saatini Giriniz.");
+                Console.WriteLine($"{item.Title}, {item.Name}, Çalışma Saatinizi Giriniz.");
                 mCalismaSaati = Convert.ToInt32(Console.ReadLine());
                 MemurKademesi memurKademesi = new MemurKademesi();
 
@@ -37,7 +38,7 @@ public class DosyaOku
                     kademeBool = false;
                     Console.WriteLine("Memur Kademesinizi Giriniz. Derece1 için (1), Derece2 için (2) ve Derece3 için (3)'e basınız.");
                     int secim = Convert.ToInt32(Console.ReadLine());
-                    
+
                     switch (secim)
                     {
                         case 1:
@@ -57,51 +58,52 @@ public class DosyaOku
 
                 Memur memur = new Memur(mCalismaSaati, memurKademesi);
                 Console.WriteLine(memur.MaasHesapla());
-                item.AnaOdeme = memur.AnaOdeme;
-                item.ToplamOdeme = memur.ToplamOdeme;
-                item.CalismaSaati = memur.CalismaSaati;
-                tumCalisan.Add(item);
 
-                if (mCalismaSaati < 150)
-                {
-                    azCalisan.Add(item);
-                }
+                MemurInfo memurInfo = new MemurInfo();
+                memurInfo.AnaOdeme = memur.AnaOdeme;
+                memurInfo.ToplamOdeme = memur.ToplamOdeme;
+                memurInfo.CalismaSaati = memur.CalismaSaati;
+                memurInfo.Mesai = memur.Mesai;
+                tumCalisan.Add(memurInfo);
+
 
             }
 
             else if (item.Title == "Yonetici")
             {
-                Console.WriteLine("Yönetici Çalışma Saatini Giriniz.");
+                Console.WriteLine($"{item.Title}, {item.Name}, Çalışma Saatinizi Giriniz.");
                 yCalismaSaati = Convert.ToInt32(Console.ReadLine());
-                if (yCalismaSaati < 150)
-                {
-                    azCalisan.Add(item);
-                }
+                
                 Yonetici yonetici = new Yonetici(yCalismaSaati);
                 Console.WriteLine(yonetici.MaasHesapla());
-                tumCalisan.Add(item);
+                YoneticiInfo yoneticiInfo = new YoneticiInfo();
+                yoneticiInfo.AnaOdeme = yonetici.AnaOdeme;
+                yoneticiInfo.ToplamOdeme = yonetici.ToplamOdeme;
+                yoneticiInfo.CalismaSaati = yonetici.CalismaSaati;
+                yoneticiInfo.Bonus = yonetici.Bonus;
+                tumCalisan.Add(yoneticiInfo);
             }
         }
+
         return tumCalisan;
     }
 
-    public void AzCalisan(List<PersonInfo> azCalisan)
+
+    public void AzCalisan(List<PersonInfo> tumCalisan)
     {
+
         Console.WriteLine("150 Saat'ten Az Çalışan Personeller");
 
-        foreach (var items in azCalisan)
+        foreach (var items in tumCalisan)
         {
-            if (items.Title == "Memur")
+            if (items.CalismaSaati < 150)
             {
-                Console.WriteLine($"{items.Name}, {items.Title}");
+                Console.WriteLine($"{items.Name}, {items.Title}, {items.CalismaSaati}");
             }
 
-            else if (items.Title == "Yonetici")
-            {
-                Console.WriteLine($"{items.Name}, {items.Title}");
-            }
+
         }
     }
 
-    
+
 }

@@ -30,15 +30,23 @@ namespace CSProjeDemo2
             if (CalismaSaati > 180)
             {
                 AnaOdeme = 180 * (int)(this.MKademesi);
-                Mesai = (CalismaSaati - 180) * (int)(this.MKademesi) * (150 / 100);
+                Mesai = (CalismaSaati - 180) * (int)(this.MKademesi) * (15 / 10);
                 ToplamOdeme = AnaOdeme + Mesai;
             }
-            else
+            else if (CalismaSaati > 0)
             {
                 AnaOdeme = CalismaSaati * (int)(this.MKademesi);
-                ToplamOdeme = AnaOdeme;
+                Mesai = 0;
+                ToplamOdeme = AnaOdeme + Mesai;
             }
+            else // (CalismaSaati <=0)
+            {
+                throw new Exception("Hatalı Çalışma Saati");
+            }
+            
+
             this.AnaOdeme = AnaOdeme;
+            this.Mesai = Mesai;
             this.ToplamOdeme = ToplamOdeme;
             
             return ToplamOdeme;
