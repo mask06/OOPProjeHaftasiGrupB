@@ -8,18 +8,31 @@ namespace CSProjeDemo2
 {
     public class Yonetici : Personel
     {
-        
+        private decimal _bonus = 1000;
+
+        public decimal Bonus
+        {
+            get { return _bonus; }
+            
+        }
+
+
+        public Yonetici()
+        {
+            
+        }
+
         int saatlikucret = 800;
-        int bonus = 1000;
+        
         public Yonetici(int calismaSaati)
         {
-            CalismaSaati = calismaSaati;    
+            CalismaSaati = calismaSaati;
         }
 
         public override decimal MaasHesapla()
         {
             AnaOdeme = CalismaSaati * saatlikucret;
-            ToplamOdeme = AnaOdeme + bonus;
+            ToplamOdeme = AnaOdeme + _bonus;
             return ToplamOdeme;
         }
     }

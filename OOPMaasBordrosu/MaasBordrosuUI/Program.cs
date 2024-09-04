@@ -16,7 +16,11 @@ namespace CSProjeDemo2
             DosyaOku jsonOku = new DosyaOku();
             jsonOku.dosyaOku();
 
-            
+            MaasBordro maasBordro = new MaasBordro();
+            maasBordro.PersonelleriYukle("personel.json");
+
+            maasBordro.RaporYazdir("raporlar");
+            maasBordro.KisaRaporYazdir();
         }
     }
 }

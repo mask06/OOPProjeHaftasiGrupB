@@ -8,8 +8,6 @@ using System.Threading.Tasks;
 
 namespace CSProjeDemo2
 {
-    [JsonConverter(typeof(Personel))]
-    // Json DEserilation to Abstract clas or Interfdace
     public abstract class Personel
     {
         public string Name { get; set; }

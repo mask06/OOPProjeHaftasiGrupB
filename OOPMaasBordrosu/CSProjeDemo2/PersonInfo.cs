@@ -10,5 +10,6 @@ namespace CSProjeDemo2
     {
         public string Name { get; set; }
         public string Title { get; set; }
+       
     }
 }

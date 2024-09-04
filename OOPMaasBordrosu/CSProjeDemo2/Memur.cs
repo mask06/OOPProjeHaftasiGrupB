@@ -11,6 +11,12 @@ namespace CSProjeDemo2
     public class Memur : Personel
     {
         public decimal Mesai { get; set; }
+
+        public Memur()
+        {
+            
+        }
+
         public MemurKademesi MKademesi { get; set; }
 
         public Memur(int calismaSaati, MemurKademesi memurKademesi)
