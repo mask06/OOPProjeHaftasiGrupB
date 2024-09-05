@@ -76,7 +76,6 @@ public class DosyaOku
                 
                 Yonetici yonetici = new Yonetici(yCalismaSaati);
                 Console.WriteLine(yonetici.MaasHesapla());
-                tumCalisan.Add(item);
             }
         }
 
