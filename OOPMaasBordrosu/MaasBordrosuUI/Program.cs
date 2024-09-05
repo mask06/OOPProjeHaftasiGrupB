@@ -16,12 +16,13 @@ namespace CSProjeDemo2
             DosyaOku jsonOku = new DosyaOku();
             var temp = jsonOku.dosyaOku();
 
-            MaasBordro maasBordro = new MaasBordro(temp);
+            MaasBordro maasBordro = new MaasBordro(temp.Memurlar,temp.Yoneticiler);
             //maasBordro.PersonelleriYukle();
 
-            maasBordro.RaporYazdir();
+            maasBordro.RaporYazdirMemur();
+            maasBordro.RaporYazdirYonetici();
             maasBordro.KisaRaporYazdir();
-            jsonOku.AzCalisan(temp);
+            jsonOku.AzCalisan(temp.Memurlar, temp.Yoneticiler);
         }
     }
 }

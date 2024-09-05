@@ -17,6 +17,7 @@ namespace CSProjeDemo2
             
         }
 
+        [JsonIgnore] // MKademenin serilaze edilirken jsona yazılmaması için kullandık.
         public MemurKademesi MKademesi { get; set; }
 
         public Memur(int calismaSaati, MemurKademesi memurKademesi)

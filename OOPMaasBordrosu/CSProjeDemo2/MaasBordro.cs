@@ -11,11 +11,13 @@ namespace CSProjeDemo2
 {
     public class MaasBordro
     {
-        private List<PersonInfo> _people;
+        private List<Memur> _memurlar;
+        private List<Yonetici> _yoneticiler;
 
-        public MaasBordro(List<PersonInfo> person)
+        public MaasBordro(List<Memur> memurlar, List<Yonetici> yoneticiler)
         {
-            _people = person;
+            _memurlar = memurlar;
+            _yoneticiler = yoneticiler;
         }
 
         //string json = File.ReadAllText("personel.json");
@@ -31,11 +33,23 @@ namespace CSProjeDemo2
         //}
 
 
-        public void RaporYazdir()
+        public void RaporYazdirMemur()
         {
-            foreach (PersonInfo personel in _people)
+            foreach (Memur personel in _memurlar)
             {
                 Directory.CreateDirectory(personel.Name.Replace(" ","_"));
+
+                string dosyaAdi = $"{personel.Name.Replace(" ", "_")}\\{personel.Name}.json";
+                string json = JsonSerializer.Serialize(personel);
+                File.WriteAllText(dosyaAdi, json);
+            }
+        }
+        public void RaporYazdirYonetici()
+        {
+            foreach (Yonetici personel in _yoneticiler)
+            {
+                Directory.CreateDirectory(personel.Name.Replace(" ", "_"));
+
                 string dosyaAdi = $"{personel.Name.Replace(" ", "_")}\\{personel.Name}.json";
                 string json = JsonSerializer.Serialize(personel);
                 File.WriteAllText(dosyaAdi, json);
@@ -49,7 +63,7 @@ namespace CSProjeDemo2
 
             Console.WriteLine("Personel Raporu");
 
-            foreach (PersonInfo personel in _people)
+            foreach (Memur personel in _memurlar)
             {
                 if (personel.Title == "Memur")
                 {
@@ -62,19 +76,24 @@ namespace CSProjeDemo2
                         Console.WriteLine($"Toplam Ödeme: {personel.ToplamOdeme}");
                     }
                 }
-                else if (personel.Title == "Yonetici")
+            }
+            foreach (Yonetici personel in _yoneticiler)
+            {
+                if (personel.Title == "Memur")
                 {
                     {
                         Console.WriteLine($"Adı: {personel.Name}");
                         Console.WriteLine($"Unvanı: {personel.Title}");
                         Console.WriteLine($"Çalışma Saati: {personel.CalismaSaati}");
                         Console.WriteLine($"Ana Ödeme: {personel.AnaOdeme}");
-                        Console.WriteLine($"Bonus: {personel.Bonus}");
+                        Console.WriteLine($"Mesai: {personel.Bonus}");
                         Console.WriteLine($"Toplam Ödeme: {personel.ToplamOdeme}");
                     }
                 }
-
             }
+
+
+
         }
 
 
