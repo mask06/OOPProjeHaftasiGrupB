@@ -31,50 +31,50 @@ namespace CSProjeDemo2
         //}
 
 
-        public void RaporYazdir()
-        {
-            foreach (PersonInfo personel in _people)
-            {
-                Directory.CreateDirectory(personel.Name);
-                string dosyaAdi = $"{personel.Name}\\{personel.Name}.json";
-                string json = JsonSerializer.Serialize(personel);
-                File.WriteAllText(dosyaAdi, json);
-            }
-        }
+        //public void RaporYazdir()
+        //{
+        //    foreach (PersonInfo personel in _people)
+        //    {
+        //        Directory.CreateDirectory(personel.Name);
+        //        string dosyaAdi = $"{personel.Name}\\{personel.Name}.json";
+        //        string json = JsonSerializer.Serialize(personel);
+        //        File.WriteAllText(dosyaAdi, json);
+        //    }
+        //}
 
 
-        public void KisaRaporYazdir()
-        {
+        //public void KisaRaporYazdir()
+        //{
 
 
-            Console.WriteLine("Personel Raporu");
+        //    Console.WriteLine("Personel Raporu");
 
-            foreach (PersonInfo personel in _people)
-            {
-                if (personel.Title == "Memur")
-                {
-                    {
-                        Console.WriteLine($"Adı: {personel.Name}");
-                        Console.WriteLine($"Unvanı: {personel.Title}");
-                        Console.WriteLine($"Çalışma Saati: {personel.CalismaSaati}");
-                        Console.WriteLine($"Toplam Ödeme: {personel.AnaOdeme}");
-                        Console.WriteLine($"Mesai: {personel.Mesai}");
-                        Console.WriteLine($"Toplam Ödeme: {personel.ToplamOdeme}");
-                    }
-                }
-                else if (personel.Title == "Yonetici")
-                {
-                    {
-                        Console.WriteLine($"Adı: {personel.Name}");
-                        Console.WriteLine($"Unvanı: {personel.Title}");
-                        Console.WriteLine($"Çalışma Saati: {personel.CalismaSaati}");
-                        Console.WriteLine($"Toplam Ödeme: {personel.AnaOdeme}");
-                        Console.WriteLine($"Bonus: {personel.Bonus}");
-                        Console.WriteLine($"Toplam Ödeme: {personel.ToplamOdeme}");
-                    }
-                }
+        //    foreach (PersonInfo personel in _people)
+        //    {
+        //        if (personel.Title == "Memur")
+        //        {
+        //            {
+        //                Console.WriteLine($"Adı: {personel.Name}");
+        //                Console.WriteLine($"Unvanı: {personel.Title}");
+        //                Console.WriteLine($"Çalışma Saati: {personel.CalismaSaati}");
+        //                Console.WriteLine($"Toplam Ödeme: {personel.AnaOdeme}");
+        //                Console.WriteLine($"Mesai: {personel.Mesai}");
+        //                Console.WriteLine($"Toplam Ödeme: {personel.ToplamOdeme}");
+        //            }
+        //        }
+        //        else if (personel.Title == "Yonetici")
+        //        {
+        //            {
+        //                Console.WriteLine($"Adı: {personel.Name}");
+        //                Console.WriteLine($"Unvanı: {personel.Title}");
+        //                Console.WriteLine($"Çalışma Saati: {personel.CalismaSaati}");
+        //                Console.WriteLine($"Toplam Ödeme: {personel.AnaOdeme}");
+        //                Console.WriteLine($"Bonus: {personel.Bonus}");
+        //                Console.WriteLine($"Toplam Ödeme: {personel.ToplamOdeme}");
+        //            }
+        //        }
 
-            }
+        //    }
 
 
 
@@ -140,4 +140,4 @@ namespace CSProjeDemo2
             //}
         }
     }
-}
+
