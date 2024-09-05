@@ -43,11 +43,11 @@ namespace CSProjeDemo2
         }
 
 
-        //public void KisaRaporYazdir()
-        //{
+        public void KisaRaporYazdir()
+        {
 
 
-        //    Console.WriteLine("Personel Raporu");
+            Console.WriteLine("Personel Raporu");
 
             foreach (PersonInfo personel in _people)
             {
@@ -74,7 +74,8 @@ namespace CSProjeDemo2
                     }
                 }
 
-        //    }
+            }
+        }
 
 
 
