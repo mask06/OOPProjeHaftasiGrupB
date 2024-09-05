@@ -13,16 +13,28 @@ namespace CSProjeDemo2
     {
         public static void Main(string[] args)
         {
+            Console.WriteLine("\t \t \t \t \t Muz Cumhuriyetine Hoşgeldiniz \n ");
+            Console.WriteLine("Personel listesi: \n ");
+           
             DosyaOku jsonOku = new DosyaOku();
+            jsonOku.PersonelListeleriniYaz();
+
             var temp = jsonOku.dosyaOku();
+            MaasBordro maasBordro = new MaasBordro();
 
-            MaasBordro maasBordro = new MaasBordro(temp.Memurlar,temp.Yoneticiler);
-            //maasBordro.PersonelleriYukle();
+            maasBordro.RaporYazdir(temp.Memurlar);
+            maasBordro.RaporYazdir(temp.Yoneticiler);
 
-            maasBordro.RaporYazdirMemur();
-            maasBordro.RaporYazdirYonetici();
-            maasBordro.KisaRaporYazdir();
+            //maasBordro.RaporYazdirMemur();
+            //maasBordro.RaporYazdirYonetici();
+
+
+            maasBordro.KisaRaporYazdir(temp.Memurlar);
+            maasBordro.KisaRaporYazdir(temp.Yoneticiler);
             jsonOku.AzCalisan(temp.Memurlar, temp.Yoneticiler);
+
+
+
         }
     }
 }

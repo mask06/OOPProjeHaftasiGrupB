@@ -23,8 +23,17 @@ namespace CSProjeDemo2
         {
             get { return _yoneticiler; }
         }
+        public void PersonelListeleriniYaz()
+        {
+            string json = File.ReadAllText("personel.json");
+            List<PersonInfo> people = JsonSerializer.Deserialize<List<PersonInfo>>(json);
 
-        //public dönecek bu listeleri
+            foreach (var person in people)
+            {
+                Console.WriteLine($"Name: {person.Name}, Title: {person.Title}");
+            }
+        }
+
 
         public DosyaOku dosyaOku()
         {
@@ -36,12 +45,13 @@ namespace CSProjeDemo2
             string json = File.ReadAllText("personel.json");
             List<PersonInfo> people = JsonSerializer.Deserialize<List<PersonInfo>>(json);
 
-            foreach (var person in people)
-            {
-                Console.WriteLine($"Name: {person.Name}, Title: {person.Title}");
-            }
+     
+
             foreach (var item in people)
             {
+                Console.Clear();
+                PersonelListeleriniYaz();
+
                 if (item.Title == "Memur")
                 {
                     Console.WriteLine($"{item.Title}, {item.Name}, Çalışma Saatinizi Giriniz.");
@@ -54,7 +64,7 @@ namespace CSProjeDemo2
 
                     {
                         Console.WriteLine("Geçerli bir çalışma saati giriniz.");
-    
+
                     }
 
                     while (true)
@@ -85,20 +95,18 @@ namespace CSProjeDemo2
                         }
                     }
 
-
                     Memur memur = new Memur(mCalismaSaati, memurKademesi);
                     Console.WriteLine(memur.MaasHesapla());
                     memur.Name = item.Name;
                     memur.Title = item.Title;
                     _memurlar.Add(memur);
-
-
+                    
 
                 }
 
                 else if (item.Title == "Yonetici")
                 {
-                    Console.WriteLine($"{item.Title},{item.Name} Çalışma Saatini Giriniz.");            
+                    Console.WriteLine($"{item.Title},{item.Name} Çalışma Saatini Giriniz.");
 
                     while (!int.TryParse(Console.ReadLine(), out yCalismaSaati) ||
                        yCalismaSaati < 0 || yCalismaSaati > 300)
@@ -113,12 +121,14 @@ namespace CSProjeDemo2
                     yonetici.Name = item.Name;
                     yonetici.Title = item.Title;
                     _yoneticiler.Add(yonetici);
+                   
                 }
             }
 
             return this;
         }
 
+       
         public void AzCalisan(List<Memur> _memurlar, List<Yonetici> _yoneticiler)
         {
 
