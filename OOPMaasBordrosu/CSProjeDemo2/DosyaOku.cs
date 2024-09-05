@@ -76,12 +76,7 @@ public class DosyaOku
                 
                 Yonetici yonetici = new Yonetici(yCalismaSaati);
                 Console.WriteLine(yonetici.MaasHesapla());
-                YoneticiInfo yoneticiInfo = new YoneticiInfo();
-                yoneticiInfo.AnaOdeme = yonetici.AnaOdeme;
-                yoneticiInfo.ToplamOdeme = yonetici.ToplamOdeme;
-                yoneticiInfo.CalismaSaati = yonetici.CalismaSaati;
-                yoneticiInfo.Bonus = yonetici.Bonus;
-                tumCalisan.Add(yoneticiInfo);
+                tumCalisan.Add(item);
             }
         }
 
