@@ -9,9 +9,10 @@ using System.Text.Json;
 public class DosyaOku
 {
     int mCalismaSaati, yCalismaSaati;
-
+    
     public List<PersonInfo> dosyaOku()
     {
+        
         List<PersonInfo> tumCalisan = new List<PersonInfo>();
 
         string json = File.ReadAllText("personel.json");
@@ -37,7 +38,7 @@ public class DosyaOku
                     kademeBool = false;
                     Console.WriteLine("Memur Kademesinizi Giriniz. Derece1 için (1), Derece2 için (2) ve Derece3 için (3)'e basınız.");
                     int secim = Convert.ToInt32(Console.ReadLine());
-                    
+
                     switch (secim)
                     {
                         case 1:
@@ -81,11 +82,13 @@ public class DosyaOku
                 tumCalisan.Add(item);
             }
         }
+
         return tumCalisan;
     }
 
     public void AzCalisan(List<PersonInfo> tumCalisan)
     {
+
         Console.WriteLine("150 Saat'ten Az Çalışan Personeller");
 
         foreach (var items in tumCalisan)
@@ -96,5 +99,5 @@ public class DosyaOku
         }
     }
 
-    
+
 }
