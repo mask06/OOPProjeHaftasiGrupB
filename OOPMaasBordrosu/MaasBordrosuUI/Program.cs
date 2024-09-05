@@ -23,6 +23,7 @@ namespace CSProjeDemo2
             maasBordro.KisaRaporYazdir();
 
             Console.WriteLine();
+            Console.WriteLine();
 
             jsonOku.AzCalisan(temp);
 
