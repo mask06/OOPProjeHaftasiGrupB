@@ -20,27 +20,15 @@ namespace CSProjeDemo2
             _yoneticiler = yoneticiler;
         }
 
-        //string json = File.ReadAllText("personel.json");
-        //List<PersonInfo> people = JsonSerializer.Deserialize<List<PersonInfo>>(json);
-
-        //public void PersonelleriYukle()
-        //{
-
-        //    string json = File.ReadAllText("personel.json");
-        //    //List<PersonInfo> people = JsonSerializer.Deserialize<List<PersonInfo>>(json);
-        //    _people = JsonSerializer.Deserialize<List<PersonInfo>>(json);
-
-        //}
-
-
         public void RaporYazdirMemur()
         {
             foreach (Memur personel in _memurlar)
             {
                 Directory.CreateDirectory(personel.Name.Replace(" ","_"));
+                Directory.CreateDirectory($"{personel.Name.Replace(" ", "_")}\\{DateTime.Now.Month}-{DateTime.Now.Year}");
 
-                string dosyaAdi = $"{personel.Name.Replace(" ", "_")}\\{personel.Name}.json";
-                string json = JsonSerializer.Serialize(personel);
+                string dosyaAdi = $"{personel.Name.Replace(" ", "_")}\\{DateTime.Now.Month}-{DateTime.Now.Year}\\{personel.Name}.json";
+                string json = JsonSerializer.Serialize(personel, new JsonSerializerOptions{WriteIndented=true}); //json formatında propları alt alta yazmasını sağlar
                 File.WriteAllText(dosyaAdi, json);
             }
         }
@@ -49,9 +37,10 @@ namespace CSProjeDemo2
             foreach (Yonetici personel in _yoneticiler)
             {
                 Directory.CreateDirectory(personel.Name.Replace(" ", "_"));
+                Directory.CreateDirectory($"{personel.Name.Replace(" ", "_")}\\{DateTime.Now.Month}-{DateTime.Now.Year}");
 
-                string dosyaAdi = $"{personel.Name.Replace(" ", "_")}\\{personel.Name}.json";
-                string json = JsonSerializer.Serialize(personel);
+                string dosyaAdi = $"{personel.Name.Replace(" ", "_")}\\{DateTime.Now.Month}-{DateTime.Now.Year}\\{personel.Name}.json";          
+                string json = JsonSerializer.Serialize(personel, new JsonSerializerOptions { WriteIndented = true });
                 File.WriteAllText(dosyaAdi, json);
             }
         }
@@ -59,7 +48,6 @@ namespace CSProjeDemo2
 
         public void KisaRaporYazdir()
         {
-
 
             Console.WriteLine("Personel Raporu");
 

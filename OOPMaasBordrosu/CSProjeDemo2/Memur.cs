@@ -10,7 +10,15 @@ namespace CSProjeDemo2
 {
     public class Memur : Personel
     {
+        public string Name { get; set; }
+        public string Title { get; set; }
+        public int CalismaSaati { get; set; }
+
+        public decimal AnaOdeme { get; set; }
         public decimal Mesai { get; set; }
+
+        public decimal ToplamOdeme { get; set; }
+       
 
         public Memur()
         {

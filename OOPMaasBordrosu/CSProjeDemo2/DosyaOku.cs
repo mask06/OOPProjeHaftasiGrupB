@@ -12,6 +12,7 @@ namespace CSProjeDemo2
         int mCalismaSaati, yCalismaSaati;
         private List<Memur> _memurlar;
         private List<Yonetici> _yoneticiler;
+        MemurKademesi memurKademesi = new MemurKademesi();
 
         public List<Memur> Memurlar
         {
@@ -43,35 +44,47 @@ namespace CSProjeDemo2
             {
                 if (item.Title == "Memur")
                 {
+                    Console.WriteLine($"{item.Title}, {item.Name}, Çalışma Saatinizi Giriniz.");
 
-                    Console.WriteLine($"{item.Title},{item.Name} Çalışma Saatini Giriniz.");
-                    mCalismaSaati = Convert.ToInt32(Console.ReadLine());
-                    MemurKademesi memurKademesi = new MemurKademesi();
 
-                    bool kademeBool = false;
+                    int mCalismaSaati;
 
-                    do
+                    while (!int.TryParse(Console.ReadLine(), out mCalismaSaati) ||
+                        mCalismaSaati < 0 || mCalismaSaati > 300)
+
                     {
-                        kademeBool = false;
-                        Console.WriteLine("Memur Kademesinizi Giriniz. Derece1 için (1), Derece2 için (2) ve Derece3 için (3)'e basınız.");
-                        int secim = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine("Geçerli bir çalışma saati giriniz.");
+    
+                    }
 
-                        switch (secim)
+                    while (true)
+                    {
+                        Console.WriteLine("Memur Kademenizi Giriniz. Derece1 için (1), Derece2 için (2) ve Derece3 için (3)'e basınız.");
+                        if (int.TryParse(Console.ReadLine(), out int secim))
                         {
-                            case 1:
-                                memurKademesi = MemurKademesi.Derece1;
-                                break;
-                            case 2:
-                                memurKademesi = MemurKademesi.Derece2;
-                                break;
-                            case 3:
-                                memurKademesi = MemurKademesi.Derece3;
-                                break;
-                            default:
-                                kademeBool = true;
-                                break;
+                            switch (secim)
+                            {
+                                case 1:
+                                    memurKademesi = MemurKademesi.Derece1;
+                                    break;
+                                case 2:
+                                    memurKademesi = MemurKademesi.Derece2;
+                                    break;
+                                case 3:
+                                    memurKademesi = MemurKademesi.Derece3;
+                                    break;
+                                default:
+                                    Console.WriteLine("Geçersiz memur kademesi, tekrar deneyiniz.");
+                                    continue;
+                            }
+                            break;
                         }
-                    } while (kademeBool);
+                        else
+                        {
+                            Console.WriteLine("Geçersiz giriş. Lütfen bir sayı giriniz.");
+                        }
+                    }
+
 
                     Memur memur = new Memur(mCalismaSaati, memurKademesi);
                     Console.WriteLine(memur.MaasHesapla());
@@ -85,8 +98,15 @@ namespace CSProjeDemo2
 
                 else if (item.Title == "Yonetici")
                 {
-                    Console.WriteLine($"{item.Title},{item.Name} Çalışma Saatini Giriniz.");
-                    yCalismaSaati = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine($"{item.Title},{item.Name} Çalışma Saatini Giriniz.");            
+
+                    while (!int.TryParse(Console.ReadLine(), out yCalismaSaati) ||
+                       yCalismaSaati < 0 || yCalismaSaati > 300)
+
+                    {
+                        Console.WriteLine("Geçerli bir çalışma saati giriniz.");
+
+                    }
 
                     Yonetici yonetici = new Yonetici(yCalismaSaati);
                     Console.WriteLine(yonetici.MaasHesapla());

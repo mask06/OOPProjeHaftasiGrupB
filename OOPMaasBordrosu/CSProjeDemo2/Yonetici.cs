@@ -10,11 +10,19 @@ namespace CSProjeDemo2
     {
         private decimal _bonus = 1000;
 
+        public string Name { get; set; }
+        public string Title { get; set; }
+        public int CalismaSaati { get; set; }
+
+        public decimal AnaOdeme { get; set; }
+
         public decimal Bonus
         {
             get { return _bonus; }
-            
+
         }
+
+        public decimal ToplamOdeme { get; set; }
 
 
         public Yonetici()
