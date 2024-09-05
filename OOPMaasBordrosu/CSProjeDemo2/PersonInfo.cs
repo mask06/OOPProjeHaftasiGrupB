@@ -16,5 +16,9 @@ namespace CSProjeDemo2
 
         public decimal ToplamOdeme { get; set; }
 
+        public decimal Bonus { get; set; }
+
+        public decimal Mesai { get; set; }
+
     }
 }

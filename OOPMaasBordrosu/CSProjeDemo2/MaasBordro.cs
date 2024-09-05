@@ -35,8 +35,8 @@ namespace CSProjeDemo2
         {
             foreach (PersonInfo personel in _people)
             {
-                Directory.CreateDirectory(personel.Name);
-                string dosyaAdi = $"{personel.Name}\\{personel.Name}.json";
+                Directory.CreateDirectory(personel.Name.Replace(" ","_"));
+                string dosyaAdi = $"{personel.Name.Replace(" ", "_")}\\{personel.Name}.json";
                 string json = JsonSerializer.Serialize(personel);
                 File.WriteAllText(dosyaAdi, json);
             }
@@ -53,26 +53,24 @@ namespace CSProjeDemo2
             {
                 if (personel.Title == "Memur")
                 {
-                    Memur memur = new Memur();
                     {
-                        Console.WriteLine($"Adı: {memur.Name}");
-                        Console.WriteLine($"Unvanı: {memur.Title}");
-                        Console.WriteLine($"Çalışma Saati: {memur.CalismaSaati}");
-                        Console.WriteLine($"Toplam Ödeme: {memur.AnaOdeme}");
-                        Console.WriteLine($"Çalışma Saati: {memur.Mesai}");
-                        Console.WriteLine($"Toplam Ödeme: {memur.ToplamOdeme}");
+                        Console.WriteLine($"Adı: {personel.Name}");
+                        Console.WriteLine($"Unvanı: {personel.Title}");
+                        Console.WriteLine($"Çalışma Saati: {personel.CalismaSaati}");
+                        Console.WriteLine($"Ana Ödeme: {personel.AnaOdeme}");
+                        Console.WriteLine($"Mesai: {personel.Mesai}");
+                        Console.WriteLine($"Toplam Ödeme: {personel.ToplamOdeme}");
                     }
                 }
                 else if (personel.Title == "Yonetici")
                 {
-                    Yonetici yonetici = new Yonetici();
                     {
-                        Console.WriteLine($"Adı: {yonetici.Name}");
-                        Console.WriteLine($"Unvanı: {yonetici.Title}");
-                        Console.WriteLine($"Çalışma Saati: {yonetici.CalismaSaati}");
-                        Console.WriteLine($"Toplam Ödeme: {yonetici.AnaOdeme}");
-                        Console.WriteLine($"Çalışma Saati: {yonetici.Bonus}");
-                        Console.WriteLine($"Toplam Ödeme: {yonetici.ToplamOdeme}");
+                        Console.WriteLine($"Adı: {personel.Name}");
+                        Console.WriteLine($"Unvanı: {personel.Title}");
+                        Console.WriteLine($"Çalışma Saati: {personel.CalismaSaati}");
+                        Console.WriteLine($"Ana Ödeme: {personel.AnaOdeme}");
+                        Console.WriteLine($"Bonus: {personel.Bonus}");
+                        Console.WriteLine($"Toplam Ödeme: {personel.ToplamOdeme}");
                     }
                 }
 

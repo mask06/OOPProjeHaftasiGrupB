@@ -1,6 +1,7 @@
 ﻿using CSProjeDemo2;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.IO;
 using System.Text.Json;
 
@@ -11,7 +12,6 @@ public class DosyaOku
 
     public List<PersonInfo> dosyaOku()
     {
-        List<PersonInfo> azCalisan = new List<PersonInfo>();
         List<PersonInfo> tumCalisan = new List<PersonInfo>();
 
         string json = File.ReadAllText("personel.json");
@@ -26,7 +26,7 @@ public class DosyaOku
             if (item.Title == "Memur")
             {
 
-                Console.WriteLine("Memur Çalışma Saatini Giriniz.");
+                Console.WriteLine($"{item.Title},{item.Name} Çalışma Saatini Giriniz.");
                 mCalismaSaati = Convert.ToInt32(Console.ReadLine());
                 MemurKademesi memurKademesi = new MemurKademesi();
 
@@ -60,46 +60,39 @@ public class DosyaOku
                 item.AnaOdeme = memur.AnaOdeme;
                 item.ToplamOdeme = memur.ToplamOdeme;
                 item.CalismaSaati = memur.CalismaSaati;
+                item.Mesai=memur.Mesai;
                 tumCalisan.Add(item);
 
-                if (mCalismaSaati < 150)
-                {
-                    azCalisan.Add(item);
-                }
+                
 
             }
 
             else if (item.Title == "Yonetici")
             {
-                Console.WriteLine("Yönetici Çalışma Saatini Giriniz.");
+                Console.WriteLine($"{item.Title},{item.Name} Çalışma Saatini Giriniz.");
                 yCalismaSaati = Convert.ToInt32(Console.ReadLine());
-                if (yCalismaSaati < 150)
-                {
-                    azCalisan.Add(item);
-                }
+                
                 Yonetici yonetici = new Yonetici(yCalismaSaati);
                 Console.WriteLine(yonetici.MaasHesapla());
+                item.AnaOdeme = yonetici.AnaOdeme;
+                item.ToplamOdeme = yonetici.ToplamOdeme;
+                item.CalismaSaati = yonetici.CalismaSaati;
+                item.Bonus = yonetici.Bonus;
                 tumCalisan.Add(item);
             }
         }
         return tumCalisan;
     }
 
-    public void AzCalisan(List<PersonInfo> azCalisan)
+    public void AzCalisan(List<PersonInfo> tumCalisan)
     {
         Console.WriteLine("150 Saat'ten Az Çalışan Personeller");
 
-        foreach (var items in azCalisan)
+        foreach (var items in tumCalisan)
         {
-            if (items.Title == "Memur")
-            {
-                Console.WriteLine($"{items.Name}, {items.Title}");
-            }
+            if (items.CalismaSaati<150)
+                Console.WriteLine($"{items.Title}, {items.Name} {items.CalismaSaati} saat çalıştı.");
 
-            else if (items.Title == "Yonetici")
-            {
-                Console.WriteLine($"{items.Name}, {items.Title}");
-            }
         }
     }
 

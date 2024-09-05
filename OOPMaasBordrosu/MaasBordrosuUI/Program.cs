@@ -21,6 +21,7 @@ namespace CSProjeDemo2
 
             maasBordro.RaporYazdir();
             maasBordro.KisaRaporYazdir();
+            jsonOku.AzCalisan(temp);
         }
     }
 }
