@@ -5,105 +5,163 @@ using System.Diagnostics.Metrics;
 using System.IO;
 using System.Text.Json;
 
-
-public class DosyaOku
+namespace CSProjeDemo2
 {
-    int mCalismaSaati, yCalismaSaati;
-    
-    public List<PersonInfo> dosyaOku()
+    public class DosyaOku
     {
-        
-        List<PersonInfo> tumCalisan = new List<PersonInfo>();
+        int mCalismaSaati, yCalismaSaati;
+        private List<Memur> _memurlar;
+        private List<Yonetici> _yoneticiler;
+        MemurKademesi memurKademesi = new MemurKademesi();
 
-        string json = File.ReadAllText("personel.json");
-        List<PersonInfo> people = JsonSerializer.Deserialize<List<PersonInfo>>(json);
-
-        foreach (var person in people)
+        public List<Memur> Memurlar
         {
-            Console.WriteLine($"Name: {person.Name}, Title: {person.Title}");
+            get { return _memurlar; }
         }
-        foreach (var item in people)
+
+        public List<Yonetici> Yoneticiler
         {
-            if (item.Title == "Memur")
+            get { return _yoneticiler; }
+        }
+
+
+
+        public DosyaOku dosyaOku()
+        {
+
+            List<PersonInfo> tumCalisan = new List<PersonInfo>();
+            _memurlar = new List<Memur>();
+            _yoneticiler = new List<Yonetici>();
+
+            string json = File.ReadAllText("personel.json");
+            List<PersonInfo> people = JsonSerializer.Deserialize<List<PersonInfo>>(json);
+
+
+
+
+            foreach (var item in people)
             {
+                Console.Clear();
+                muzRepublic();
+                PersonelListeleriniYaz();
 
-                Console.WriteLine($"{item.Title}, {item.Name}, Çalışma Saatinizi Giriniz.");
-                mCalismaSaati = Convert.ToInt32(Console.ReadLine());
-                MemurKademesi memurKademesi = new MemurKademesi();
-
-                bool kademeBool = false;
-
-                do
+                if (item.Title == "Memur")
                 {
-                    kademeBool = false;
-                    Console.WriteLine("Memur Kademesinizi Giriniz. Derece1 için (1), Derece2 için (2) ve Derece3 için (3)'e basınız.");
-                    int secim = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine($"{item.Title}, {item.Name}, Çalışma Saatinizi Giriniz.");
 
-                    switch (secim)
+
+                    int mCalismaSaati;
+
+                    while (!int.TryParse(Console.ReadLine(), out mCalismaSaati) ||
+                        mCalismaSaati <= 0 || mCalismaSaati > 300)
+
                     {
-                        case 1:
-                            memurKademesi = MemurKademesi.Derece1;
-                            break;
-                        case 2:
-                            memurKademesi = MemurKademesi.Derece2;
-                            break;
-                        case 3:
-                            memurKademesi = MemurKademesi.Derece3;
-                            break;
-                        default:
-                            kademeBool = true;
-                            break;
+                        Console.WriteLine("Geçerli bir çalışma saati giriniz.");
+
                     }
-                } while (kademeBool);
 
-                Memur memur = new Memur(mCalismaSaati, memurKademesi);
-                Console.WriteLine(memur.MaasHesapla());
+                    while (true)
+                    {
+                        Console.WriteLine("Memur Kademenizi Giriniz. Derece1 için (1), Derece2 için (2) ve Derece3 için (3)'e basınız.");
+                        if (int.TryParse(Console.ReadLine(), out int secim))
+                        {
+                            switch (secim)
+                            {
+                                case 1:
+                                    memurKademesi = MemurKademesi.Derece1;
+                                    break;
+                                case 2:
+                                    memurKademesi = MemurKademesi.Derece2;
+                                    break;
+                                case 3:
+                                    memurKademesi = MemurKademesi.Derece3;
+                                    break;
+                                default:
+                                    Console.WriteLine("Geçersiz memur kademesi, tekrar deneyiniz.");
+                                    continue;
+                            }
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Geçersiz giriş. Lütfen bir sayı giriniz.");
+                        }
+                    }
 
-                MemurInfo memurInfo = new MemurInfo();
-                memurInfo.AnaOdeme = memur.AnaOdeme;
-                memurInfo.ToplamOdeme = memur.ToplamOdeme;
-                memurInfo.CalismaSaati = memur.CalismaSaati;
-                memurInfo.Mesai = memur.Mesai;
-                tumCalisan.Add(memurInfo);
+                    Memur memur = new Memur(mCalismaSaati, memurKademesi);
+                    Console.WriteLine(memur.MaasHesapla());
+                    memur.Name = item.Name;
+                    memur.Title = item.Title;
+                    _memurlar.Add(memur);
 
+
+                }
+
+                else if (item.Title == "Yonetici")
+                {
+                    Console.WriteLine($"{item.Title},{item.Name} Çalışma Saatini Giriniz.");
+
+                    while (!int.TryParse(Console.ReadLine(), out yCalismaSaati) ||
+                       yCalismaSaati < 0 || yCalismaSaati > 300)
+
+                    {
+                        Console.WriteLine("Geçerli bir çalışma saati giriniz.");
+
+                    }
+
+                    Yonetici yonetici = new Yonetici(yCalismaSaati);
+                    Console.WriteLine(yonetici.MaasHesapla());
+                    yonetici.Name = item.Name;
+                    yonetici.Title = item.Title;
+                    _yoneticiler.Add(yonetici);
+
+                }
 
             }
 
-            else if (item.Title == "Yonetici")
-            {
-                Console.WriteLine($"{item.Title}, {item.Name}, Çalışma Saatinizi Giriniz.");
-                yCalismaSaati = Convert.ToInt32(Console.ReadLine());
-                
-                Yonetici yonetici = new Yonetici(yCalismaSaati);
-                Console.WriteLine(yonetici.MaasHesapla());
-                YoneticiInfo yoneticiInfo = new YoneticiInfo();
-                yoneticiInfo.AnaOdeme = yonetici.AnaOdeme;
-                yoneticiInfo.ToplamOdeme = yonetici.ToplamOdeme;
-                yoneticiInfo.CalismaSaati = yonetici.CalismaSaati;
-                yoneticiInfo.Bonus = yonetici.Bonus;
-                tumCalisan.Add(yoneticiInfo);
-            }
+
+            return this;
         }
 
-        return tumCalisan;
-    }
-
-
-    public void AzCalisan(List<PersonInfo> tumCalisan)
-    {
-
-        Console.WriteLine("150 Saat'ten Az Çalışan Personeller");
-
-        foreach (var items in tumCalisan)
+        public void muzRepublic()
         {
-            if (items.CalismaSaati < 150)
-            {
-                Console.WriteLine($"{items.Name}, {items.Title}, {items.CalismaSaati}");
-            }
-
+            Console.WriteLine("\t \t \t \t \t Muz Cumhuriyetine Hoşgeldiniz \n\n ");
 
         }
+
+        public void PersonelListeleriniYaz()
+        {
+            string json = File.ReadAllText("personel.json");
+            List<PersonInfo> people = JsonSerializer.Deserialize<List<PersonInfo>>(json);
+            Console.WriteLine("Name" + new string(' ', 18) + "| Title ");
+            Console.WriteLine(new string('-', 36));
+            foreach (var person in people)
+            {
+                //Console.WriteLine($"Name: {person.Name}, Title: {person.Title}");
+                Console.WriteLine($"{person.Name,-21} | {person.Title,3}");
+            }
+            Console.WriteLine();
+        }
+
+        public void AzCalisan(List<Memur> _memurlar, List<Yonetici> _yoneticiler)
+        {
+
+
+
+            foreach (var items in _memurlar)
+            {
+                if (items.CalismaSaati < 150)
+                    Console.WriteLine($"{items.Title}, {items.Name} {items.CalismaSaati} saat çalıştı.");
+
+            }
+            foreach (var items in _yoneticiler)
+            {
+                if (items.CalismaSaati < 150)
+                    Console.WriteLine($"{items.Title}, {items.Name} {items.CalismaSaati} saat çalıştı.");
+
+            }
+        }
+
+
     }
-
-
 }
