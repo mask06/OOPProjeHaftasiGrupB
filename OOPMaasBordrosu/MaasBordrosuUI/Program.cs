@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Collections.Generic;
 using CSProjeDemo2;
+using System.Xml;
 
 namespace CSProjeDemo2
 
@@ -13,28 +14,55 @@ namespace CSProjeDemo2
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("\t \t \t \t \t Muz Cumhuriyetine Hoşgeldiniz \n ");
-            Console.WriteLine("Personel listesi: \n ");
-           
-            DosyaOku jsonOku = new DosyaOku();
-            jsonOku.PersonelListeleriniYaz();
+            bool program = true;
 
-            var temp = jsonOku.dosyaOku();
-            MaasBordro maasBordro = new MaasBordro();
+            while (program)
+            {
+                program = false;
+                DosyaOku jsonOku = new DosyaOku();
+                jsonOku.muzRepublic();
+                MaasBordro maasBordro = new MaasBordro();
+                jsonOku.PersonelListeleriniYaz();
 
-            maasBordro.RaporYazdir(temp.Memurlar);
-            maasBordro.RaporYazdir(temp.Yoneticiler);
+                Console.WriteLine("Personel bilgilerini giriniz.");
+                var temp = jsonOku.dosyaOku();
+                Console.WriteLine("\t PERSONEL RAPORU \n ");
+                maasBordro.KisaRaporYazdir(temp.Memurlar);
+                maasBordro.KisaRaporYazdir(temp.Yoneticiler);
 
-            //maasBordro.RaporYazdirMemur();
-            //maasBordro.RaporYazdirYonetici();
+                Console.WriteLine("Yapmak İstediğiniz İşlemi Seçiniz\n\n" +
+                             "150 Saatten Az Çalışan Personelleri Görmek İçin 1'e Basınız\n\n" +
+                             "Maaş Bordro Klasörü OLuşturmak İçin 2'e Basınız.\n" +
+                             "Programı Bitirmek için 3'e basınız.\n" +
+                             "programı devam ettirmek için 4 e bas");
+                int secim = Convert.ToInt32(Console.ReadLine());
 
+                switch (secim)
+                {
+                    case 1:
+                        Console.WriteLine("\t 150 SAATTEN AZ ÇALIŞAN PERSONELLER \n");
+                        jsonOku.AzCalisan(temp.Memurlar, temp.Yoneticiler);
+                        break;
+                    case 2:
+                        maasBordro.RaporYazdir(temp.Memurlar);
+                        maasBordro.RaporYazdir(temp.Yoneticiler);
+                        break;
+                    case 3:
+                        program = false;
+                        break;
+                    case 4:
+                        program = true;
+                        break;
+                    default:
+                        while (int.TryParse(Console.ReadLine(), out secim) || secim < 1 || secim > 4)
+                        {
+                            Console.WriteLine("Lütfen Yapmak istediğiniz işlemi tekrar seçiniz.");
+                            secim = Convert.ToInt32(Console.ReadLine());
+                        }
+                        break;
+                }
 
-            maasBordro.KisaRaporYazdir(temp.Memurlar);
-            maasBordro.KisaRaporYazdir(temp.Yoneticiler);
-            jsonOku.AzCalisan(temp.Memurlar, temp.Yoneticiler);
-
-
-
+            }
         }
     }
 }

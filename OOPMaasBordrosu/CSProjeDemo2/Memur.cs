@@ -10,14 +10,13 @@ namespace CSProjeDemo2
 {
     public class Memur : Personel
     {
-
         [JsonPropertyOrder(5)]
         public decimal Mesai { get; set; }
 
 
         public Memur()
         {
-            
+
         }
 
         [JsonIgnore] // MKademenin serilaze edilirken jsona yazılmaması için kullandık.
@@ -31,28 +30,28 @@ namespace CSProjeDemo2
 
         public override decimal MaasHesapla()
         {
-            if (CalismaSaati > 180)
-            {
-                AnaOdeme = 180 * (int)(this.MKademesi);
-                Mesai = (CalismaSaati - 180) * (int)(this.MKademesi) * (15 / 10);
-                ToplamOdeme = AnaOdeme + Mesai;
-            }
-            else if (CalismaSaati > 0)
-            {
-                AnaOdeme = CalismaSaati * (int)(this.MKademesi);
-                Mesai = 0;
-                ToplamOdeme = AnaOdeme + Mesai;
-            }
-            else // (CalismaSaati <=0)
-            {
-                throw new Exception("Hatalı Çalışma Saati");
-            }
             
+                if (CalismaSaati > 180)
+                {
+                    AnaOdeme = 180 * (int)(this.MKademesi);
+                    Mesai = (CalismaSaati - 180) * (int)(this.MKademesi) * (15 / 10);
+                    ToplamOdeme = AnaOdeme + Mesai;
+                }
+                else if (CalismaSaati >= 0)
+                {
+                    AnaOdeme = CalismaSaati * (int)(this.MKademesi);
+                    Mesai = 0;
+                    ToplamOdeme = AnaOdeme + Mesai;
+                }
+                
+
+
+
 
             this.AnaOdeme = AnaOdeme;
             this.Mesai = Mesai;
             this.ToplamOdeme = ToplamOdeme;
-            
+
             return ToplamOdeme;
         }
     }

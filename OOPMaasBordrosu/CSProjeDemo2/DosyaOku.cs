@@ -23,16 +23,7 @@ namespace CSProjeDemo2
         {
             get { return _yoneticiler; }
         }
-        public void PersonelListeleriniYaz()
-        {
-            string json = File.ReadAllText("personel.json");
-            List<PersonInfo> people = JsonSerializer.Deserialize<List<PersonInfo>>(json);
 
-            foreach (var person in people)
-            {
-                Console.WriteLine($"Name: {person.Name}, Title: {person.Title}");
-            }
-        }
 
 
         public DosyaOku dosyaOku()
@@ -45,11 +36,13 @@ namespace CSProjeDemo2
             string json = File.ReadAllText("personel.json");
             List<PersonInfo> people = JsonSerializer.Deserialize<List<PersonInfo>>(json);
 
-     
+
+
 
             foreach (var item in people)
             {
                 Console.Clear();
+                muzRepublic();
                 PersonelListeleriniYaz();
 
                 if (item.Title == "Memur")
@@ -60,7 +53,7 @@ namespace CSProjeDemo2
                     int mCalismaSaati;
 
                     while (!int.TryParse(Console.ReadLine(), out mCalismaSaati) ||
-                        mCalismaSaati < 0 || mCalismaSaati > 300)
+                        mCalismaSaati <= 0 || mCalismaSaati > 300)
 
                     {
                         Console.WriteLine("Geçerli bir çalışma saati giriniz.");
@@ -100,7 +93,7 @@ namespace CSProjeDemo2
                     memur.Name = item.Name;
                     memur.Title = item.Title;
                     _memurlar.Add(memur);
-                    
+
 
                 }
 
@@ -121,18 +114,39 @@ namespace CSProjeDemo2
                     yonetici.Name = item.Name;
                     yonetici.Title = item.Title;
                     _yoneticiler.Add(yonetici);
-                   
+
                 }
+
             }
+
 
             return this;
         }
 
-       
+        public void muzRepublic()
+        {
+            Console.WriteLine("\t \t \t \t \t Muz Cumhuriyetine Hoşgeldiniz \n\n ");
+
+        }
+
+        public void PersonelListeleriniYaz()
+        {
+            string json = File.ReadAllText("personel.json");
+            List<PersonInfo> people = JsonSerializer.Deserialize<List<PersonInfo>>(json);
+            Console.WriteLine("Name" + new string(' ', 18) + "| Title ");
+            Console.WriteLine(new string('-', 36));
+            foreach (var person in people)
+            {
+                //Console.WriteLine($"Name: {person.Name}, Title: {person.Title}");
+                Console.WriteLine($"{person.Name,-21} | {person.Title,3}");
+            }
+            Console.WriteLine();
+        }
+
         public void AzCalisan(List<Memur> _memurlar, List<Yonetici> _yoneticiler)
         {
 
-            Console.WriteLine("150 Saat'ten Az Çalışan Personeller");
+
 
             foreach (var items in _memurlar)
             {

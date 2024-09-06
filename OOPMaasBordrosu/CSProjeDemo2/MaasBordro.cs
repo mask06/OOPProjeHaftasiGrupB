@@ -33,21 +33,25 @@ namespace CSProjeDemo2
 
         public void KisaRaporYazdir<T>(List<T> people) where T : Personel
         {
-            Console.WriteLine("Personel Raporu");
+            
             foreach (var personel in people)
             {
                 Console.WriteLine($"Adı: {personel.Name}");
                 Console.WriteLine($"Unvanı: {personel.Title}");
                 Console.WriteLine($"Çalışma Saati: {personel.CalismaSaati}");
                 Console.WriteLine($"Ana Ödeme: {personel.AnaOdeme}");
+
                 if (personel is Memur memur)
                 {
                     Console.WriteLine($"Mesai: {memur.Mesai}");
                 }
                 else if (personel is Yonetici yonetici)
                 { Console.WriteLine($"Bonus: {yonetici.Bonus}"); }
-                Console.WriteLine($"Toplam Ödeme: {personel.ToplamOdeme}");
-                Console.WriteLine();
+                Console.WriteLine($"Toplam Ödeme: {personel.ToplamOdeme}\n");
+                
+                Console.WriteLine(new string('-', 36) + "\n");
+
+                
             }
         }
 
