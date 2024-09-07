@@ -54,14 +54,14 @@ namespace CSProjeDemo2
                     {
                         Console.WriteLine("\n\t 150 SAATTEN AZ ÇALIŞAN PERSONELLER \n");
 
-                        jsonOku.AzCalisan(temp.Memurlar, temp.Yoneticiler);
-
+                        jsonOku.AzCalisan(temp.Memurlar);
+                        jsonOku.AzCalisan(temp.Yoneticiler);
                         continue;
 
                     }
                     else if (secim == "C")
                     {
-                        Console.WriteLine("\t KLASÖRLERİNİZ OLUŞTURULDU. LÜTFEN PROJE DOSYANIZI KONTROL EDİNİZ. \n");
+                        Console.WriteLine("\n\t KLASÖRLERİNİZ OLUŞTURULDU. LÜTFEN PROJE DOSYANIZI KONTROL EDİNİZ. \n");
 
                         maasBordro.RaporYazdir(temp.Memurlar);
                         maasBordro.RaporYazdir(temp.Yoneticiler);

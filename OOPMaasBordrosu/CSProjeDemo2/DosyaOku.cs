@@ -140,22 +140,17 @@ namespace CSProjeDemo2
             Console.WriteLine();
         }
 
-        public void AzCalisan(List<Memur> _memurlar, List<Yonetici> _yoneticiler)
+        public void AzCalisan<T>(List<T> people) where T : Personel
         {
-            foreach (var items in _memurlar)
+            foreach (var personel in people)
             {
-                if (items.CalismaSaati < 150)
-                    Console.WriteLine($"{items.Title}, {items.Name} {items.CalismaSaati} saat çalıştı.");
-
-            }
-            foreach (var items in _yoneticiler)
-            {
-                if (items.CalismaSaati < 150)
-                    Console.WriteLine($"{items.Title}, {items.Name} {items.CalismaSaati} saat çalıştı.");
+                if (personel.CalismaSaati < 150)
+                    Console.WriteLine($"{personel.Title}, {personel.Name} {personel.CalismaSaati} saat çalıştı.");
 
             }
         }
-
-
     }
+
+
 }
+
