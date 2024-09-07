@@ -9,6 +9,7 @@ namespace CSProjeDemo2
 {
     public class Yonetici : Personel
     {
+        int saatlikucret = 800;
         private decimal _bonus = 1000;
 
         [JsonPropertyOrder(5)]
@@ -18,15 +19,11 @@ namespace CSProjeDemo2
 
         }
 
-
-
         public Yonetici()
         {
             
         }
 
-        int saatlikucret = 800;
-        
         public Yonetici(int calismaSaati)
         {
             CalismaSaati = calismaSaati;

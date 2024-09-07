@@ -25,7 +25,6 @@ namespace CSProjeDemo2
         }
 
 
-
         public DosyaOku dosyaOku()
         {
 
@@ -125,8 +124,7 @@ namespace CSProjeDemo2
 
         public void muzRepublic()
         {
-            Console.WriteLine("\t \t \t \t \t Muz Cumhuriyetine Hoşgeldiniz \n\n ");
-
+            Console.WriteLine("\t \t \t \t \t MUZ CUMHURİYETİ'NE HOŞ GELDİNİZ \n\n ");
         }
 
         public void PersonelListeleriniYaz()
@@ -137,7 +135,6 @@ namespace CSProjeDemo2
             Console.WriteLine(new string('-', 36));
             foreach (var person in people)
             {
-                //Console.WriteLine($"Name: {person.Name}, Title: {person.Title}");
                 Console.WriteLine($"{person.Name,-21} | {person.Title,3}");
             }
             Console.WriteLine();
@@ -145,9 +142,6 @@ namespace CSProjeDemo2
 
         public void AzCalisan(List<Memur> _memurlar, List<Yonetici> _yoneticiler)
         {
-
-
-
             foreach (var items in _memurlar)
             {
                 if (items.CalismaSaati < 150)

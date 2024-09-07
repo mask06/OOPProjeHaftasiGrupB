@@ -12,7 +12,6 @@ namespace CSProjeDemo2
     public class MaasBordro
     {
 
-
         public MaasBordro()
         {
 
@@ -51,7 +50,6 @@ namespace CSProjeDemo2
                 
                 Console.WriteLine(new string('-', 36) + "\n");
 
-                
             }
         }
 
