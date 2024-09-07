@@ -17,15 +17,15 @@ namespace CSProjeDemo2
 
         }
 
-        public void RaporYazdir<T>(List<T> list) where T : Personel
+        public void RaporYazdir<T>(List<T> people) where T : Personel
         {
-            foreach (T item in list)
+            foreach (var personel in people)
             {
-                Directory.CreateDirectory(item.Name.Replace(" ", "_"));
-                Directory.CreateDirectory($"{item.Name.Replace(" ", "_")}\\{DateTime.Now.Month}-{DateTime.Now.Year}");
+                Directory.CreateDirectory(personel.Name.Replace(" ", "_"));
+                Directory.CreateDirectory($"{personel.Name.Replace(" ", "_")}\\{DateTime.Now.Month}-{DateTime.Now.Year}");
 
-                string dosyaAdi = $"{item.Name.Replace(" ", "_")}\\{DateTime.Now.Month}-{DateTime.Now.Year}\\{item.Name}.json";
-                string json = JsonSerializer.Serialize(item, new JsonSerializerOptions { WriteIndented = true }); //json formatında propları alt alta yazmasını sağlar
+                string dosyaAdi = $"{personel.Name.Replace(" ", "_")}\\{DateTime.Now.Month}-{DateTime.Now.Year}\\{personel.Name}.json";
+                string json = JsonSerializer.Serialize(personel, new JsonSerializerOptions { WriteIndented = true }); //json formatında propları alt alta yazmasını sağlar
                 File.WriteAllText(dosyaAdi, json);
             }
         }

@@ -9,7 +9,6 @@ namespace CSProjeDemo2
 {
     public class DosyaOku
     {
-        int mCalismaSaati, yCalismaSaati;
         private List<Memur> _memurlar;
         private List<Yonetici> _yoneticiler;
         MemurKademesi memurKademesi = new MemurKademesi();
@@ -27,7 +26,6 @@ namespace CSProjeDemo2
 
         public DosyaOku dosyaOku()
         {
-
             List<PersonInfo> tumCalisan = new List<PersonInfo>();
             _memurlar = new List<Memur>();
             _yoneticiler = new List<Yonetici>();
@@ -35,97 +33,108 @@ namespace CSProjeDemo2
             string json = File.ReadAllText("personel.json");
             List<PersonInfo> people = JsonSerializer.Deserialize<List<PersonInfo>>(json);
 
-
-
-
-            foreach (var item in people)
+            foreach (var personInfo in people)
             {
-                Console.Clear();
-                muzRepublic();
-                PersonelListeleriniYaz();
+                Personel person = CreatePerson(personInfo);
 
-                if (item.Title == "Memur")
+                if (person != null)
                 {
-                    Console.WriteLine($"{item.Title}, {item.Name}, Çalışma Saatinizi Giriniz.");
+
+                    Console.Clear();
+                    muzRepublic();
+                    PersonelListeleriniYaz();
 
 
-                    int mCalismaSaati;
+                    Console.WriteLine($"{person.Title}, {person.Name}, Çalışma Saatinizi Giriniz.");
 
-                    while (!int.TryParse(Console.ReadLine(), out mCalismaSaati) ||
-                        mCalismaSaati <= 0 || mCalismaSaati > 300)
+                    int calismaSaati;
 
+                    while (!int.TryParse(Console.ReadLine(), out calismaSaati) || calismaSaati < 0 || calismaSaati > 300)
                     {
                         Console.WriteLine("Geçerli bir çalışma saati giriniz.");
-
                     }
 
-                    while (true)
+                    person.CalismaSaati = calismaSaati;
+
+                    if (person is Memur memur)
                     {
-                        Console.WriteLine("Memur Kademenizi Giriniz. Derece1 için (1), Derece2 için (2) ve Derece3 için (3)'e basınız.");
-                        if (int.TryParse(Console.ReadLine(), out int secim))
-                        {
-                            switch (secim)
-                            {
-                                case 1:
-                                    memurKademesi = MemurKademesi.Derece1;
-                                    break;
-                                case 2:
-                                    memurKademesi = MemurKademesi.Derece2;
-                                    break;
-                                case 3:
-                                    memurKademesi = MemurKademesi.Derece3;
-                                    break;
-                                default:
-                                    Console.WriteLine("Geçersiz memur kademesi, tekrar deneyiniz.");
-                                    continue;
-                            }
-                            break;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Geçersiz giriş. Lütfen bir sayı giriniz.");
-                        }
+                        MemurKademesi memurKademesi = Secim("Memur Kademenizi Giriniz. Derece1 için (1), Derece2 için (2) ve Derece3 için (3)'e basınız.",
+                                                                     (1, MemurKademesi.Derece1), (2, MemurKademesi.Derece2), (3, MemurKademesi.Derece3));
+                        memur.MKademesi = memurKademesi;
+                        Console.WriteLine($"Seçilen Memur Kademesi: {memurKademesi}");
+                        _memurlar.Add(memur);
+                    }
+                    else if (person is Yonetici yonetici)
+                    {
+                        _yoneticiler.Add(yonetici);
                     }
 
-                    Memur memur = new Memur(mCalismaSaati, memurKademesi);
-                    Console.WriteLine(memur.MaasHesapla());
-                    memur.Name = item.Name;
-                    memur.Title = item.Title;
-                    _memurlar.Add(memur);
-
+                    Console.WriteLine($"{person.MaasHesapla()}");
 
                 }
-
-                else if (item.Title == "Yonetici")
-                {
-                    Console.WriteLine($"{item.Title},{item.Name} Çalışma Saatini Giriniz.");
-
-                    while (!int.TryParse(Console.ReadLine(), out yCalismaSaati) ||
-                       yCalismaSaati < 0 || yCalismaSaati > 300)
-
-                    {
-                        Console.WriteLine("Geçerli bir çalışma saati giriniz.");
-
-                    }
-
-                    Yonetici yonetici = new Yonetici(yCalismaSaati);
-                    Console.WriteLine(yonetici.MaasHesapla());
-                    yonetici.Name = item.Name;
-                    yonetici.Title = item.Title;
-                    _yoneticiler.Add(yonetici);
-
-                }
-
             }
-
-
             return this;
         }
+
+
+        private Personel CreatePerson(PersonInfo personInfo)
+        {
+            switch (personInfo.Title)
+            {
+                case "Memur":
+                    return new Memur
+                    {
+                        Name = personInfo.Name,
+                        Title = personInfo.Title
+                    };
+                case "Yonetici":
+                    return new Yonetici
+                    {
+                        Name = personInfo.Name,
+                        Title = personInfo.Title
+                    };
+                default:
+                    return null;
+            }
+        }
+
+
+        static T Secim<T>(string mesaj, params (int key, T value)[] seçenekler)
+        {
+            while (true)
+            {
+                Console.WriteLine(mesaj);
+                if (int.TryParse(Console.ReadLine(), out int _secim))
+                {
+                    foreach (var (key, value) in seçenekler)
+                    {
+                        if (_secim == key)
+                        {
+                            return value;
+                        }
+                    }
+                }
+                Console.WriteLine("Geçersiz seçim, tekrar deneyiniz.");
+            }
+        }
+
+
+        public void AzCalisan<T>(List<T> people) where T : Personel
+        {
+            foreach (var personel in people)
+            {
+                if (personel.CalismaSaati < 150)
+                    Console.WriteLine($"{personel.Title}, {personel.Name} {personel.CalismaSaati} saat çalıştı.");
+
+            }
+        }
+
 
         public void muzRepublic()
         {
             Console.WriteLine("\t \t \t \t \t MUZ CUMHURİYETİ'NE HOŞ GELDİNİZ \n\n ");
         }
+
 
         public void PersonelListeleriniYaz()
         {
@@ -139,18 +148,6 @@ namespace CSProjeDemo2
             }
             Console.WriteLine();
         }
-
-        public void AzCalisan<T>(List<T> people) where T : Personel
-        {
-            foreach (var personel in people)
-            {
-                if (personel.CalismaSaati < 150)
-                    Console.WriteLine($"{personel.Title}, {personel.Name} {personel.CalismaSaati} saat çalıştı.");
-
-            }
-        }
     }
-
-
 }
 

@@ -22,6 +22,7 @@ namespace CSProjeDemo2
                 MaasBordro maasBordro = new MaasBordro();
 
                 var temp = jsonOku.dosyaOku();
+                
                 Console.Clear();
                 jsonOku.muzRepublic();
                 jsonOku.PersonelListeleriniYaz();
