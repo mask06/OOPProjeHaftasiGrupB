@@ -32,7 +32,7 @@ namespace CSProjeDemo2
 
         public void KisaRaporYazdir<T>(List<T> people) where T : Personel
         {
-            
+
             foreach (var personel in people)
             {
                 Console.WriteLine($"Adı: {personel.Name}");
@@ -40,17 +40,21 @@ namespace CSProjeDemo2
                 Console.WriteLine($"Çalışma Saati: {personel.CalismaSaati}");
                 Console.WriteLine($"Ana Ödeme: {personel.AnaOdeme}");
 
-                if (personel is Memur memur)
+                switch (personel)
                 {
-                    Console.WriteLine($"Mesai: {memur.Mesai}");
+                    case Memur memur:
+                        Console.WriteLine($"Mesai: {memur.Mesai}");
+                        break;
+                    case Yonetici yonetici:
+                        Console.WriteLine($"Bonus: {yonetici.Bonus}");
+                        break;
                 }
-                else if (personel is Yonetici yonetici)
-                { Console.WriteLine($"Bonus: {yonetici.Bonus}"); }
-                Console.WriteLine($"Toplam Ödeme: {personel.ToplamOdeme}\n");
-                
-                Console.WriteLine(new string('-', 36) + "\n");
 
+                Console.WriteLine($"Toplam Ödeme: {personel.ToplamOdeme}\n");
+
+                Console.WriteLine(new string('-', 36) + "\n");
             }
+
         }
 
     }
