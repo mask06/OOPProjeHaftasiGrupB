@@ -8,27 +8,30 @@ using static CSProjeDemo2.Memur;
 
 namespace CSProjeDemo2
 {
+    //Personel ata sınıfını kalıtım alan Memur sub class oluşturuldu. 
     public class Memur : Personel
-    {
+    { 
 
         [JsonPropertyOrder(5)]
         public decimal Mesai { get; set; }
 
+        // Memur Kademesinin serilaze edilirken jsona yazılmaması için kullandık.
 
-        [JsonIgnore] // MKademenin serilaze edilirken jsona yazılmaması için kullandık.
+        [JsonIgnore] 
         public MemurKademesi MKademesi { get; set; }
 
+        //Create Person (dosyaoku sınıfı) metotu için boş constractor tanımladık.
         public Memur()
         {
 
         }
-
+        //Constractur tanımlanarak Memur objesi oluşturulurken çalışma saati ve memur kademeleri objenin içerisine yerleştirmiş olduk.
         public Memur(int calismaSaati, MemurKademesi memurKademesi)
         {
             CalismaSaati = calismaSaati;
             MKademesi = memurKademesi;
         }
-
+        //Personel sınıfında abstract olan Maas Hesapla metotu override ile ezilerek memur sınıfı için özelleştirildi.
         public override decimal MaasHesapla()
         {
 

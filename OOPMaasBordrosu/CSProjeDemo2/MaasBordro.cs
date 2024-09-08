@@ -12,11 +12,9 @@ namespace CSProjeDemo2
     public class MaasBordro
     {
 
-        public MaasBordro()
-        {
 
-        }
 
+        //İç içe klasörlere json formatındaki dosyayı ekleme işlemleri bu generic list metotta yer alır. 
         public void RaporYazdir<T>(List<T> people) where T : Personel
         {
             foreach (var personel in people)
@@ -30,6 +28,7 @@ namespace CSProjeDemo2
             }
         }
 
+        //Bu generic list metotta personel raporunun konsola yazılmasını sağlar.
         public void KisaRaporYazdir<T>(List<T> people) where T : Personel
         {
 

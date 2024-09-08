@@ -14,34 +14,35 @@ namespace CSProjeDemo2
     {
         public static void Main(string[] args)
         {
-            bool program = true;
 
+            bool program = true;
+            // Kullanıcın isteğine bağlı olarak programı devam ettirir ya da sonlandırır.
             while (program)
             {
                 DosyaOku jsonOku = new DosyaOku();
                 MaasBordro maasBordro = new MaasBordro();
-
+                // Dosya oku metotunda geri döndürülen bilgileri değişkende sakladık. 
                 var temp = jsonOku.dosyaOku();
-                
+                //Karşılama yapılır.
                 Console.Clear();
                 jsonOku.muzRepublic();
                 jsonOku.PersonelListeleriniYaz();
 
                 bool program2 = true;
-
+                // Kullanıcının konsolda seçim yapmasını ve her seçimden sonra seçeneklerin tekrar sunulmasını sağlar.
                 while (program2)
                 {
-
+                    // Konsol tasarımı ile seçenekler sunulur.
                     Console.WriteLine("\n\n" + new string('*', 72) + "\n" + new string(' ', 71) + "*" +
                                       "\nPersonel Raporu'nu Görüntülemek için M'ye Basınız.\n" + new string(' ', 71) + "*" +
                                       "\n150 Saatten Az Çalışan Personelleri Görmek İçin A'ya Basınız.\n" + new string(' ', 71) + "*" +
                                       "\nMaaş Bordro Klasörü OLuşturmak İçin C'ye Basınız.\n" + new string(' ', 71) + "*" +
                                       "\nProgramı tekrar başlatmak veya sonlandırmak için öncelikle K'ye Basınız.\n" + new string(' ', 71) + "*\n" + new string('*', 72) + "\n");
 
-
+                    // Kullanıcıdan alınan değerin kontrolünü yapar. ( Boşluk ve harf boyutu.)
                     string secim = Console.ReadLine().Trim().ToUpper();
 
-
+                    //Personel raporunu ekrana yazdıran metotu çağırır ve parametre olarak list verilir. 
                     if (secim == "M")
                     {
                         Console.WriteLine("\n\t PERSONEL RAPORU \n\n");
@@ -51,6 +52,8 @@ namespace CSProjeDemo2
 
                         continue;
                     }
+
+                    //150 saatten az çalışan personlleri ekrana yazdıran metotu çağırır ve parametre olarak list verilir. 
                     else if (secim == "A")
                     {
                         Console.WriteLine("\n\t 150 SAATTEN AZ ÇALIŞAN PERSONELLER \n");
@@ -60,6 +63,8 @@ namespace CSProjeDemo2
                         continue;
 
                     }
+
+                    //Personel raporunu json formatına yazdıran ve iç içe klasörleri oluşturan  metotu çağırır ve parametre olarak list verilir. 
                     else if (secim == "C")
                     {
                         Console.WriteLine("\n\t KLASÖRLERİNİZ OLUŞTURULDU. LÜTFEN PROJE DOSYANIZI KONTROL EDİNİZ. \n");
@@ -69,6 +74,8 @@ namespace CSProjeDemo2
 
                         continue;
                     }
+
+                    //Programı devam ettirme ve sonlandırma seçeneğini sunan koşuldur.
                     else if (secim == "K")
                     {
                         program2 = false;
@@ -82,17 +89,19 @@ namespace CSProjeDemo2
 
                 }
 
+                // Konsol tasarımı ile seçenekler sunulur.
                 Console.WriteLine("\n" + new string('*', 72) + "\n" + new string(' ', 71) + "*\n" +
                                   "Programı yeniden başlatmak için Y'ye basınız.\n" + new string(' ', 71) + "*\n" +
                                   "Programı sonlandırmak için 'Y' haricindeki herhangi bir tuşa basınız.\n" + new string(' ', 71) + "*\n" + new string('*', 72) + "\n");
 
                 string secim2 = Console.ReadLine().Trim().ToUpper();
 
+                // Programı baştan başlatarak devam ettiren koşul. 
                 if (secim2 == "Y")
                 {
                     program = true;
                 }
-
+                // Programı sonlandıran koşul. 
                 else
                 {
                     program = false;

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace CSProjeDemo2
 {
+    //Personel sınıfı abstract olduğu için bu sınıftan obje oluşturamıyorduk. Bu sebeple "PersonInfo" sınıfı oluşturularak json dosyasını okuayabildik.
     public class PersonInfo
     {
         public string Name { get; set; }

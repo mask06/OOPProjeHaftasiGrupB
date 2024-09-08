@@ -9,10 +9,14 @@ namespace CSProjeDemo2
 {
     public class DosyaOku
     {
+        // Private olan listeler tanımladık.
         private List<Memur> _memurlar;
         private List<Yonetici> _yoneticiler;
+
+        //Enumdan yeni bir obje oluşturduk.
         MemurKademesi memurKademesi = new MemurKademesi();
 
+        //Yukarıda private olarak tanımlanan  listeleri encapsulation yapmış olduk. 
         public List<Memur> Memurlar
         {
             get { return _memurlar; }
@@ -23,10 +27,10 @@ namespace CSProjeDemo2
             get { return _yoneticiler; }
         }
 
-
+        //Json dosyasından okuduğumuz personellerin deserilaze ederek çalışma saati ve personel özelinde bulunan
+        //soruları kullanıcıdan alarak maaşlarını hesaplayıp kendi türünden oluşan listelere atıyoruz.(temp)
         public DosyaOku dosyaOku()
         {
-            List<PersonInfo> tumCalisan = new List<PersonInfo>();
             _memurlar = new List<Memur>();
             _yoneticiler = new List<Yonetici>();
 
@@ -35,16 +39,17 @@ namespace CSProjeDemo2
 
             foreach (var personInfo in people)
             {
+                //Personel abstract sınıfından oluşan sub sınıfları kontrol eden metot. 
                 Personel person = CreatePerson(personInfo);
 
                 if (person != null)
                 {
-
+                    // Konsol karşılaması burada gerçekleşir.
                     Console.Clear();
                     muzRepublic();
                     PersonelListeleriniYaz();
 
-
+                    //Ortak olan çalışma saati bilgisi kullanıcıdan alınır.
                     Console.WriteLine($"{person.Title}, {person.Name}, Çalışma Saatinizi Giriniz.");
 
                     int calismaSaati;
@@ -55,7 +60,7 @@ namespace CSProjeDemo2
                     }
 
                     person.CalismaSaati = calismaSaati;
-
+                    // Memur sınıfına özel olan memur kademesi bilgisi burada alınır.Ardından listeye eklenir.
                     if (person is Memur memur)
                     {
                         MemurKademesi memurKademesi = Secim("Memur Kademenizi Giriniz. Derece1 için (1), Derece2 için (2) ve Derece3 için (3)'e basınız.",
@@ -64,6 +69,7 @@ namespace CSProjeDemo2
                         Console.WriteLine($"Seçilen Memur Kademesi: {memurKademesi}");
                         _memurlar.Add(memur);
                     }
+                    //Listeye eklenir.
                     else if (person is Yonetici yonetici)
                     {
                         _yoneticiler.Add(yonetici);
@@ -73,10 +79,11 @@ namespace CSProjeDemo2
 
                 }
             }
+            // Maaş hesapla metotu çalıştıktan sonra oluşan bilgiler ve objeler geri döndürülür.(temp)
             return this;
         }
 
-
+        // Bu metotta titlelar kontrol edilir.
         private Personel CreatePerson(PersonInfo personInfo)
         {
             switch (personInfo.Title)
@@ -98,7 +105,7 @@ namespace CSProjeDemo2
             }
         }
 
-
+        // Enumlar için generic olan metot.
         static T Secim<T>(string mesaj, params (int key, T value)[] seçenekler)
         {
             while (true)
@@ -118,7 +125,7 @@ namespace CSProjeDemo2
             }
         }
 
-
+        // bu generic listmetotu ayda 150 saatten az çalışanları listeler.
         public void AzCalisan<T>(List<T> people) where T : Personel
         {
             foreach (var personel in people)
@@ -129,13 +136,13 @@ namespace CSProjeDemo2
             }
         }
 
-
+        //Karşılama metotudur. 
         public void muzRepublic()
         {
             Console.WriteLine("\t \t \t \t \t MUZ CUMHURİYETİ'NE HOŞ GELDİNİZ \n\n ");
         }
 
-
+        // Jsondan okunan personellerin bilgilerini liste tipine döndürür.
         public void PersonelListeleriniYaz()
         {
             string json = File.ReadAllText("personel.json");
